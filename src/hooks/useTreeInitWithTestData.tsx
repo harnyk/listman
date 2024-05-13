@@ -6,37 +6,37 @@ export const useTreeInitWithTestData = () => {
 
     const initWithTestData = async () => {
         await repo.clear();
-        const list1 = await repo.putItem({
+        const list1 = await repo.createItem({
             parentId: null,
             title: 'My List',
             checked: false,
         });
 
-        await repo.putItem({
+        await repo.createItem({
             parentId: list1.id,
             title: 'My Task',
             checked: false,
         });
 
-        await repo.putItem({
+        await repo.createItem({
             parentId: list1.id,
             title: 'My Task 2',
             checked: false,
         });
 
-        const list2 = await repo.putItem({
+        const list2 = await repo.createItem({
             parentId: null,
             title: 'My List 2',
             checked: false,
         });
 
-        await repo.putItem({
+        await repo.createItem({
             parentId: list2.id,
             title: 'My Task 3',
             checked: false,
         });
 
-        await repo.putItem({
+        await repo.createItem({
             parentId: list2.id,
             title: 'My Task 4',
             checked: false,

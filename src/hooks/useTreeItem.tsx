@@ -5,12 +5,11 @@ import { useTreeRepo } from './useTreeRepo';
 export const useTreeItem = (id: string) => {
     const repo = useTreeRepo();
     const fetcher = async (): Promise<TreeItemWithChildren | null> => {
-        const item = await repo.getItem(id);
+        const item = await repo.getItem(id, true);
         if (!item) {
             return null;
         }
-        const children = await repo.getTreeRecursively(id);
-        return { ...item, children };
+        return item;
     };
 
     const result = useSwr(`tree/item/${id}`, fetcher);

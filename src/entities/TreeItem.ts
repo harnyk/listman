@@ -4,4 +4,5 @@ export interface TreeItem {
     title: string;
     createdAt: Date;
     checked: boolean;
+    childrenIds: string[];
 }
