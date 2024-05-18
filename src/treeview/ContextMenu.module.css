@@ -1,0 +1,13 @@
+.menuInner {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+}
+
+.icon {
+}
+
+.icon-active {
+    color: #007bff;
+}

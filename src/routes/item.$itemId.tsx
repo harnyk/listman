@@ -9,7 +9,7 @@ export const Route = createFileRoute('/item/$itemId')({
 
 function ItemPage() {
     const { itemId } = Route.useParams();
-    const { data, setChecked, setTitle } = useTreeItem(itemId);
+    const { data, setChecked, setTitle, remove } = useTreeItem(itemId);
 
     const handleCheckedChange = useCallback(
         (id: string, checked: boolean) => {
@@ -25,6 +25,13 @@ function ItemPage() {
         [setTitle]
     );
 
+    const handleRemove = useCallback(
+        (id: string) => {
+            remove(id);
+        },
+        [remove]
+    );
+
     return (
         <div>
             <div>
@@ -34,6 +41,7 @@ function ItemPage() {
                         item={data}
                         onCheckChange={handleCheckedChange}
                         onTitleChange={handleTitleChange}
+                        onRemove={handleRemove}
                     />
                 )}
             </div>

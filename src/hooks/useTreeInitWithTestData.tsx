@@ -36,9 +36,15 @@ export const useTreeInitWithTestData = () => {
             checked: false,
         });
 
-        await repo.createItem({
+        const task4 = await repo.createItem({
             parentId: list2.id,
             title: 'My Task 4',
+            checked: false,
+        });
+
+        await repo.createItem({
+            parentId: task4.id,
+            title: 'My Task 5',
             checked: false,
         });
     };

@@ -24,5 +24,9 @@ export const useTreeItem = (id: string) => {
             await repo.setItemTitle(id, title);
             result.mutate();
         },
+        remove: async (id: string) => {
+            await repo.deleteItem(id);
+            result.mutate();
+        },
     };
 };

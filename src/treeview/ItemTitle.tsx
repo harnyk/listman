@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import useLongPress from 'react-use/esm/useLongPress';
 import { useCallback, useRef, useState } from 'react';
+import useLongPress from 'react-use/esm/useLongPress';
 import { TreeItemWithChildren } from '../entities/TreeItemWithChildren';
 import classes from './ItemTitle.module.css';
 
@@ -71,13 +71,15 @@ export const ItemTitle = ({
     }
 
     return (
-        <input
-            type="text"
-            ref={inputRef}
-            value={currentValue}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            onKeyUp={handleInputKeyUp}
-        />
+        <>
+            <input
+                type="text"
+                ref={inputRef}
+                value={currentValue}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onKeyUp={handleInputKeyUp}
+            />
+        </>
     );
 };
