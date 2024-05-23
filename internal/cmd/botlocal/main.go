@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"os"
 
+	"github.com/harnyk/listman/pkg/common/env"
 	"github.com/harnyk/listman/pkg/factories"
 	"github.com/harnyk/tgvercel"
 	"github.com/joho/godotenv"
@@ -15,11 +15,9 @@ func main() {
 		log.Fatalf("error loading .env file: %v", err)
 	}
 
-	token := os.Getenv("TELEGRAM_TOKEN")
+	service := factories.BotServiceFactory.Get()
 
-	service := factories.GetBotService()
-
-	err = tgvercel.RunLocal(token, service.HandleUpdate)
+	err = tgvercel.RunLocal(env.MustGet("TELEGRAM_TOKEN"), service.HandleUpdate)
 	if err != nil {
 		log.Fatalf("failed to run locally: %v", err)
 	}

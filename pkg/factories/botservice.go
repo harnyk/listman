@@ -1,25 +1,17 @@
 package factories
 
 import (
-	"os"
-
 	"github.com/harnyk/listman/pkg/botservice"
+	"github.com/harnyk/listman/pkg/common/env"
+	"github.com/harnyk/listman/pkg/common/fac"
 )
 
-var botserviceInstance *botservice.BotService
-
-func GetBotService() *botservice.BotService {
-	if botserviceInstance == nil {
-		vercelUrl := os.Getenv("VERCEL_URL")
-		if vercelUrl == "" {
-			panic("no VERCEL_URL env var")
-		}
-
-		botserviceInstance = botservice.New(
-			botservice.NewBotServiceOptions().ApplyWebappUrl(vercelUrl),
-			GetAiService(),
-			GetImportService(),
+var BotServiceFactory = fac.New[*botservice.BotService](
+	func() *botservice.BotService {
+		return botservice.New(
+			botservice.NewBotServiceOptions().ApplyWebappUrl(env.MustGet("VERCEL_URL")),
+			AiServiceFactory.Get(),
+			ImportServiceFactory.Get(),
 		)
-	}
-	return botserviceInstance
-}
+	},
+)

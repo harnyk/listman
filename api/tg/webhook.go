@@ -7,7 +7,6 @@ import (
 )
 
 func WebhookHandler(w http.ResponseWriter, r *http.Request) {
-	service := factories.GetBotService()
-
+	service := factories.BotServiceFactory.Get()
 	tgv.HandleWebhook(r, service.HandleUpdate)
 }
