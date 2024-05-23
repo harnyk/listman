@@ -8,6 +8,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/harnyk/listman/pkg/entities"
 	openai "github.com/sashabaranov/go-openai"
 )
 
@@ -238,7 +239,7 @@ type promptParams struct {
 
 var compiledTemplate = template.Must(template.New("prompt").Parse(prompt))
 
-func (a *AiService) ParseShoppingList(ctx context.Context, message string) (*ShoppingList, error) {
+func (a *AiService) ParseShoppingList(ctx context.Context, message string) (*entities.ShoppingList, error) {
 	buffer := strings.Builder{}
 	err := compiledTemplate.Execute(&buffer, promptParams{
 		Text: message,
@@ -277,7 +278,7 @@ func (a *AiService) ParseShoppingList(ctx context.Context, message string) (*Sho
 
 	modelResponse := resp.Choices[0].Message.Content
 
-	list := &ShoppingList{}
+	list := &entities.ShoppingList{}
 
 	err = json.Unmarshal([]byte(modelResponse), list)
 	if err != nil {

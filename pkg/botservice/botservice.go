@@ -6,6 +6,7 @@ import (
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/harnyk/listman/pkg/aiservice"
+	"github.com/harnyk/listman/pkg/entities"
 	"github.com/harnyk/listman/pkg/importservice"
 )
 
@@ -58,7 +59,7 @@ func (b *BotService) HandleUpdate(
 	}
 }
 
-func shoppingItemsToImportedListItems(items []aiservice.ShoppingItem) []importservice.ImportedListItem {
+func shoppingItemsToImportedListItems(items []entities.ShoppingItem) []importservice.ImportedListItem {
 	result := make([]importservice.ImportedListItem, len(items))
 	for i, item := range items {
 		result[i] = importservice.ImportedListItem{Name: item.Name, Note: item.Note}
@@ -66,13 +67,13 @@ func shoppingItemsToImportedListItems(items []aiservice.ShoppingItem) []importse
 	return result
 }
 
-func (b *BotService) storeList(ctx context.Context, listItems []aiservice.ShoppingItem) (string, error) {
-	id, err := b.importService.CreateImportedList(ctx, shoppingItemsToImportedListItems(listItems))
+func (b *BotService) storeList(ctx context.Context, listItems []entities.ShoppingItem) (string, error) {
+	id, err := b.importService.CreateImportedList(ctx, listItems)
 	if err != nil {
 		return "", err
 	}
 
-	return id.Hex(), nil
+	return id, nil
 }
 
 // func processShoppingList(shoppingList *aiservice.ShoppingList) string {

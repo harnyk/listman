@@ -1,4 +1,4 @@
-package aiservice
+package entities
 
 type ShoppingItem struct {
 	Name string `json:"name"`

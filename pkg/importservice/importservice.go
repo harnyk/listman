@@ -5,6 +5,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/harnyk/listman/pkg/common/mongouuid"
+	"github.com/harnyk/listman/pkg/entities"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -49,33 +51,47 @@ func (s *ImportService) getCollection(ctx context.Context) (*mongo.Collection, e
 	return client.Database(s.databaseName).Collection(collectionName), nil
 }
 
-func (s *ImportService) CreateImportedList(ctx context.Context, items []ImportedListItem) (primitive.ObjectID, error) {
+func (s *ImportService) CreateImportedList(ctx context.Context, items []entities.ShoppingItem) (string, error) {
 	collection, err := s.getCollection(ctx)
 	if err != nil {
-		return primitive.NilObjectID, err
+		return "", err
+	}
+
+	id, err := mongouuid.New()
+	if err != nil {
+		return "", err
 	}
 
 	result, err := collection.InsertOne(ctx, &ImportedList{
-		ID:        primitive.NewObjectID(),
+		ID:        id,
 		CreatedAt: time.Now(),
-		Items:     items,
+		Items:     NewImportedListItems(items),
 	})
 	if err != nil {
-		return primitive.NilObjectID, err
+		return "", err
 	}
 
-	return result.InsertedID.(primitive.ObjectID), nil
+	insertedId, err := mongouuid.ToStr(result.InsertedID.(primitive.Binary))
+	if err != nil {
+		return "", err
+	}
+	return insertedId, nil
 }
 
-func (s *ImportService) GetImportedListById(ctx context.Context, id primitive.ObjectID) *ImportedList {
+func (s *ImportService) GetImportedListById(ctx context.Context, id string) (*ImportedList, error) {
+	idBin, err := mongouuid.FromStr(id)
+	if err != nil {
+		return nil, err
+	}
+
 	collection, err := s.getCollection(ctx)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	var result *ImportedList
-	err = collection.FindOne(ctx, bson.M{"_id": id}).Decode(&result)
+	err = collection.FindOne(ctx, bson.M{"_id": idBin}).Decode(&result)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return result
+	return result, nil
 }
