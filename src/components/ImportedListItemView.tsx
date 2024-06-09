@@ -15,8 +15,3 @@ export const ImportedListItemView: React.FC<{ item: ImportedListItem }> = ({
         </div>
     );
 };
-import { createFileRoute } from '@tanstack/react-router';
-
-export const Route = createFileRoute('/ImportedListItemView')({
-    component: () => <div>Hello /ImportedListItemView!</div>,
-});
