@@ -1,7 +1,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { useTreeInitWithTestData } from '../hooks/useTreeInitWithTestData';
 import { useTreeRoots } from '../hooks/useTreeRoots';
-import { RootsView } from '../treeview/RootsView';
+import { RootsView } from '../components/treeview/RootsView';
 
 export const Route = createLazyFileRoute('/')({
     component: Index,

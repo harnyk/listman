@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useCallback, useRef, useState } from 'react';
 import useLongPress from 'react-use/esm/useLongPress';
-import { TreeItemWithChildren } from '../entities/TreeItemWithChildren';
+import { TreeItemWithChildren } from '../../entities/TreeItemWithChildren';
 import classes from './ItemTitle.module.css';
 
 export const ItemTitle = ({

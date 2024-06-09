@@ -1,48 +1,48 @@
 import { useSWRConfig } from 'swr';
-import { useTreeRepo } from './useTreeRepo';
+import { useDependencies } from './useDependencies';
 
 export const useTreeInitWithTestData = () => {
-    const repo = useTreeRepo();
+    const { treeRepo } = useDependencies();
 
     const initWithTestData = async () => {
-        await repo.clear();
-        const list1 = await repo.createItem({
+        await treeRepo.clear();
+        const list1 = await treeRepo.createItem({
             parentId: null,
             title: 'My List',
             checked: false,
         });
 
-        await repo.createItem({
+        await treeRepo.createItem({
             parentId: list1.id,
             title: 'My Task',
             checked: false,
         });
 
-        await repo.createItem({
+        await treeRepo.createItem({
             parentId: list1.id,
             title: 'My Task 2',
             checked: false,
         });
 
-        const list2 = await repo.createItem({
+        const list2 = await treeRepo.createItem({
             parentId: null,
             title: 'My List 2',
             checked: false,
         });
 
-        await repo.createItem({
+        await treeRepo.createItem({
             parentId: list2.id,
             title: 'My Task 3',
             checked: false,
         });
 
-        const task4 = await repo.createItem({
+        const task4 = await treeRepo.createItem({
             parentId: list2.id,
             title: 'My Task 4',
             checked: false,
         });
 
-        await repo.createItem({
+        await treeRepo.createItem({
             parentId: task4.id,
             title: 'My Task 5',
             checked: false,

@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { TreeItem } from '../entities/TreeItem';
+import { TreeItem } from '../../entities/TreeItem';
 
 export const RootsView = (items: TreeItem[]) => {
     return (

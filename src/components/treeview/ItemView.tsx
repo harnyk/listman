@@ -1,4 +1,4 @@
-import { TreeItemWithChildren } from '../entities/TreeItemWithChildren';
+import { TreeItemWithChildren } from '../../entities/TreeItemWithChildren';
 import { ItemCheckbox } from './ItemCheckbox';
 import { ItemTitle } from './ItemTitle';
 import { ItemContextMenu } from './ItemContextMenu';

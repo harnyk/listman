@@ -1,11 +1,11 @@
 import useSwr from 'swr';
 import { TreeItemWithChildren } from '../entities/TreeItemWithChildren';
-import { useTreeRepo } from './useTreeRepo';
+import { useDependencies } from './useDependencies';
 
 export const useTreeItem = (id: string) => {
-    const repo = useTreeRepo();
+    const { treeRepo } = useDependencies();
     const fetcher = async (): Promise<TreeItemWithChildren | null> => {
-        const item = await repo.getItem(id, true);
+        const item = await treeRepo.getItem(id, true);
         if (!item) {
             return null;
         }
@@ -17,15 +17,15 @@ export const useTreeItem = (id: string) => {
     return {
         ...result,
         setChecked: async (id: string, checked: boolean) => {
-            await repo.setItemChecked(id, checked);
+            await treeRepo.setItemChecked(id, checked);
             result.mutate();
         },
         setTitle: async (id: string, title: string) => {
-            await repo.setItemTitle(id, title);
+            await treeRepo.setItemTitle(id, title);
             result.mutate();
         },
         remove: async (id: string) => {
-            await repo.deleteItem(id);
+            await treeRepo.deleteItem(id);
             result.mutate();
         },
     };

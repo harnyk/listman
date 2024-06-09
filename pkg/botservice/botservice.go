@@ -48,7 +48,7 @@ func (b *BotService) HandleUpdate(
 			return
 		}
 
-		link := b.options.WebappUrl + "/imported/" + id
+		link := b.options.WebappUrl + "/imports/" + id
 
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, link)
 		_, err = bot.Send(msg)

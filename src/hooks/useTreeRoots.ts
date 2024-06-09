@@ -1,10 +1,10 @@
 import useSwr from 'swr';
-import { useTreeRepo } from './useTreeRepo';
+import { useDependencies } from './useDependencies';
 
 export const useTreeRoots = () => {
-    const repo = useTreeRepo();
+    const { treeRepo } = useDependencies();
     const fetcher = async () => {
-        return await repo.getRootItems();
+        return await treeRepo.getRootItems();
     };
 
     return useSwr('tree/roots', fetcher);

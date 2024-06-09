@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { TreeItemWithChildren } from '../entities/TreeItemWithChildren';
+import { TreeItemWithChildren } from '../../entities/TreeItemWithChildren';
 
 export const ItemCheckbox = ({
     item,

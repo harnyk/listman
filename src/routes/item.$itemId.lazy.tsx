@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useTreeItem } from '../hooks/useTreeItem';
-import { ItemView } from '../treeview/ItemView';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import { useCallback } from 'react';
+import { ItemView } from '../components/treeview/ItemView';
+import { useTreeItem } from '../hooks/useTreeItem';
 
-export const Route = createFileRoute('/item/$itemId')({
+export const Route = createLazyFileRoute('/item/$itemId')({
     component: ItemPage,
 });
 
