@@ -25,12 +25,12 @@ func New(client *mongo.Client, databaseName string) *ImportService {
 	}
 }
 
-func (s *ImportService) getCollection(ctx context.Context) *mongo.Collection {
+func (s *ImportService) getCollection() *mongo.Collection {
 	return s.client.Database(s.databaseName).Collection(collectionName)
 }
 
 func (s *ImportService) CreateImportedList(ctx context.Context, items []entities.ShoppingItem) (string, error) {
-	collection := s.getCollection(ctx)
+	collection := s.getCollection()
 
 	id, err := mongouuid.New()
 	if err != nil {
@@ -59,7 +59,7 @@ func (s *ImportService) GetImportedListById(ctx context.Context, id string) (*Im
 		return nil, err
 	}
 
-	collection := s.getCollection(ctx)
+	collection := s.getCollection()
 
 	var result *ImportedList
 	err = collection.FindOne(ctx, bson.M{"_id": idBin}).Decode(&result)
