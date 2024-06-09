@@ -6,7 +6,7 @@ import (
 	"github.com/harnyk/listman/pkg/common/fac"
 )
 
-var BotServiceFactory = fac.New[*botservice.BotService](
+var BotServiceFactory = fac.New(
 	func() *botservice.BotService {
 		return botservice.New(
 			botservice.NewBotServiceOptions().ApplyWebappUrl(env.MustGet("VERCEL_URL")),

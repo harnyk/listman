@@ -6,10 +6,10 @@ import (
 	"github.com/harnyk/listman/pkg/importservice"
 )
 
-var ImportServiceFactory = fac.New[*importservice.ImportService](
+var ImportServiceFactory = fac.New(
 	func() *importservice.ImportService {
 		return importservice.New(
-			env.MustGet("MONGODB_URI"),
+			MongoClientFactory.Get(),
 			env.MustGet("MONGODB_DATABASE"),
 		)
 	})

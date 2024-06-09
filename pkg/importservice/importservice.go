@@ -2,7 +2,6 @@ package importservice
 
 import (
 	"context"
-	"sync"
 	"time"
 
 	"github.com/harnyk/listman/pkg/common/mongouuid"
@@ -10,52 +9,28 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const collectionName = "imported_lists"
 
 type ImportService struct {
-	uri          string
 	databaseName string
 	client       *mongo.Client
-	connectMutex sync.Mutex
 }
 
-func New(uri string, databaseName string) *ImportService {
+func New(client *mongo.Client, databaseName string) *ImportService {
 	return &ImportService{
-		uri:          uri,
+		client:       client,
 		databaseName: databaseName,
 	}
 }
 
-func (s *ImportService) getClient(ctx context.Context) (*mongo.Client, error) {
-	s.connectMutex.Lock()
-	defer s.connectMutex.Unlock()
-
-	if s.client == nil {
-		client, err := mongo.Connect(ctx, options.Client().ApplyURI(s.uri))
-		if err != nil {
-			return nil, err
-		}
-		s.client = client
-	}
-	return s.client, nil
-}
-
-func (s *ImportService) getCollection(ctx context.Context) (*mongo.Collection, error) {
-	client, err := s.getClient(ctx)
-	if err != nil {
-		return nil, err
-	}
-	return client.Database(s.databaseName).Collection(collectionName), nil
+func (s *ImportService) getCollection(ctx context.Context) *mongo.Collection {
+	return s.client.Database(s.databaseName).Collection(collectionName)
 }
 
 func (s *ImportService) CreateImportedList(ctx context.Context, items []entities.ShoppingItem) (string, error) {
-	collection, err := s.getCollection(ctx)
-	if err != nil {
-		return "", err
-	}
+	collection := s.getCollection(ctx)
 
 	id, err := mongouuid.New()
 	if err != nil {
@@ -84,10 +59,8 @@ func (s *ImportService) GetImportedListById(ctx context.Context, id string) (*Im
 		return nil, err
 	}
 
-	collection, err := s.getCollection(ctx)
-	if err != nil {
-		return nil, err
-	}
+	collection := s.getCollection(ctx)
+
 	var result *ImportedList
 	err = collection.FindOne(ctx, bson.M{"_id": idBin}).Decode(&result)
 	if err != nil {

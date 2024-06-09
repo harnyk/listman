@@ -1,7 +1,10 @@
 package importservice
 
 import (
+	"encoding/json"
 	"time"
+
+	"github.com/google/uuid"
 
 	"github.com/harnyk/listman/pkg/entities"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -28,4 +31,18 @@ func NewImportedListItems(items []entities.ShoppingItem) []ImportedListItem {
 		result[i] = *NewImportedListItem(&item)
 	}
 	return result
+}
+
+func (i *ImportedList) MarshalJSON() ([]byte, error) {
+	copy := struct {
+		ID        string             `json:"ID"`
+		CreatedAt time.Time          `json:"CreatedAt"`
+		Items     []ImportedListItem `json:"Items"`
+	}{
+		ID:        uuid.UUID(i.ID.Data).String(),
+		CreatedAt: i.CreatedAt,
+		Items:     i.Items,
+	}
+
+	return json.Marshal(copy)
 }

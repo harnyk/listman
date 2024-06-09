@@ -6,7 +6,7 @@ import (
 	"github.com/harnyk/listman/pkg/common/fac"
 )
 
-var AiServiceFactory = fac.New[*aiservice.AiService](
+var AiServiceFactory = fac.New(
 	func() *aiservice.AiService {
 		return aiservice.New(env.MustGet("OPENAI_API_KEY"))
 	},
