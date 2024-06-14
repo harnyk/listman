@@ -18,6 +18,7 @@ type ImportedListItem struct {
 type ImportedList struct {
 	ID        primitive.Binary   `bson:"_id"`
 	CreatedAt time.Time          `bson:"created_at"`
+	Title     string             `bson:"title"`
 	Items     []ImportedListItem `bson:"items"`
 }
 
@@ -37,10 +38,12 @@ func (i *ImportedList) MarshalJSON() ([]byte, error) {
 	copy := struct {
 		ID        string             `json:"ID"`
 		CreatedAt time.Time          `json:"CreatedAt"`
+		Title     string             `json:"Title"`
 		Items     []ImportedListItem `json:"Items"`
 	}{
 		ID:        uuid.UUID(i.ID.Data).String(),
 		CreatedAt: i.CreatedAt,
+		Title:     i.Title,
 		Items:     i.Items,
 	}
 

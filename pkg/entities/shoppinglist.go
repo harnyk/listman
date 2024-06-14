@@ -6,6 +6,7 @@ type ShoppingItem struct {
 }
 
 type ShoppingList struct {
+	Title string         `json:"title"`
 	Items []ShoppingItem `json:"items"`
 	Error string         `json:"error"`
 }
