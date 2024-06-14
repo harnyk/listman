@@ -28,8 +28,10 @@ func NewImportedList(
 	createdAt time.Time,
 ) *ImportedList {
 	return &ImportedList{
-		Title: list.Title,
-		Items: NewImportedListItems(list.Items),
+		Title:     list.Title,
+		Items:     NewImportedListItems(list.Items),
+		ID:        id,
+		CreatedAt: createdAt,
 	}
 }
 
