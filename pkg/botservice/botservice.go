@@ -41,7 +41,7 @@ func (b *BotService) HandleUpdate(
 			return
 		}
 
-		id, err := b.storeList(context.Background(), shoppingList.Items)
+		id, err := b.storeList(context.Background(), *shoppingList)
 		if err != nil {
 			log.Println(err)
 			// TODO: send error message
@@ -67,34 +67,11 @@ func shoppingItemsToImportedListItems(items []entities.ShoppingItem) []importser
 	return result
 }
 
-func (b *BotService) storeList(ctx context.Context, listItems []entities.ShoppingItem) (string, error) {
-	id, err := b.importService.CreateImportedList(ctx, listItems)
+func (b *BotService) storeList(ctx context.Context, list entities.ShoppingList) (string, error) {
+	id, err := b.importService.CreateImportedList(ctx, list)
 	if err != nil {
 		return "", err
 	}
 
 	return id, nil
 }
-
-// func processShoppingList(shoppingList *aiservice.ShoppingList) string {
-// 	if shoppingList.HasError() {
-// 		return shoppingList.Error
-// 	}
-// 	if shoppingList.IsEmpty() {
-// 		return "Empty list"
-// 	}
-
-// 	response := new(strings.Builder)
-
-// 	for _, item := range shoppingList.Items {
-// 		response.WriteString(" - ")
-// 		response.WriteString(item.Name)
-// 		if item.Note != "" {
-// 			response.WriteString(": ")
-// 			response.WriteString(item.Note)
-// 		}
-// 		response.WriteString("\n")
-// 	}
-
-// 	return response.String()
-// }

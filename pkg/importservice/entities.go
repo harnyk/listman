@@ -22,6 +22,17 @@ type ImportedList struct {
 	Items     []ImportedListItem `bson:"items"`
 }
 
+func NewImportedList(
+	list *entities.ShoppingList,
+	id primitive.Binary,
+	createdAt time.Time,
+) *ImportedList {
+	return &ImportedList{
+		Title: list.Title,
+		Items: NewImportedListItems(list.Items),
+	}
+}
+
 func NewImportedListItem(item *entities.ShoppingItem) *ImportedListItem {
 	return (*ImportedListItem)(item)
 }

@@ -29,7 +29,7 @@ func (s *ImportService) getCollection() *mongo.Collection {
 	return s.client.Database(s.databaseName).Collection(collectionName)
 }
 
-func (s *ImportService) CreateImportedList(ctx context.Context, items []entities.ShoppingItem) (string, error) {
+func (s *ImportService) CreateImportedList(ctx context.Context, list entities.ShoppingList) (string, error) {
 	collection := s.getCollection()
 
 	id, err := mongouuid.New()
@@ -37,11 +37,8 @@ func (s *ImportService) CreateImportedList(ctx context.Context, items []entities
 		return "", err
 	}
 
-	result, err := collection.InsertOne(ctx, &ImportedList{
-		ID:        id,
-		CreatedAt: time.Now(),
-		Items:     NewImportedListItems(items),
-	})
+	dbList := NewImportedList(&list, id, time.Now())
+	result, err := collection.InsertOne(ctx, dbList)
 	if err != nil {
 		return "", err
 	}
