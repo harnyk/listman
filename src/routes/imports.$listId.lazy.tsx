@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { ImportedListItemView } from '../components/ImportedListItemView';
+import { ImportedListView } from '../components/importedlist/ImportedListView';
 import { useImportedList } from '../hooks/useImportedList';
 
 export const Route = createLazyFileRoute('/imports/$listId')({
@@ -13,15 +13,5 @@ function ImportedListPage() {
         return null;
     }
 
-    return (
-        <div>
-            <h1>{list.Title}</h1>
-            <p>Created: {list.CreatedAt}</p>
-            <ul>
-                {list.Items.map((item, index) => (
-                    <ImportedListItemView key={index} item={item} />
-                ))}
-            </ul>
-        </div>
-    );
+    return <ImportedListView list={list} />;
 }

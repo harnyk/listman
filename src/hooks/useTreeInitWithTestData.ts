@@ -1,5 +1,6 @@
 import { useSWRConfig } from 'swr';
 import { useDependencies } from './useDependencies';
+import { swrKeyTreeRoots } from './swr/keys';
 
 export const useTreeInitWithTestData = () => {
     const { treeRepo } = useDependencies();
@@ -53,6 +54,6 @@ export const useTreeInitWithTestData = () => {
 
     return async () => {
         await initWithTestData();
-        mutate('tree/roots');
+        mutate(swrKeyTreeRoots());
     };
 };

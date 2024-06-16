@@ -1,5 +1,6 @@
 import useSwr from 'swr';
 import { useDependencies } from './useDependencies';
+import { swrKeyTreeRoots } from './swr/keys';
 
 export const useTreeRoots = () => {
     const { treeRepo } = useDependencies();
@@ -7,5 +8,5 @@ export const useTreeRoots = () => {
         return await treeRepo.getRootItems();
     };
 
-    return useSwr('tree/roots', fetcher);
+    return useSwr(swrKeyTreeRoots(), fetcher);
 };

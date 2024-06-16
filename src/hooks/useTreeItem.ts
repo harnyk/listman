@@ -1,6 +1,7 @@
 import useSwr from 'swr';
 import { TreeItemWithChildren } from '../entities/TreeItemWithChildren';
 import { useDependencies } from './useDependencies';
+import { swrKeyTreeItem } from './swr/keys';
 
 export const useTreeItem = (id: string) => {
     const { treeRepo } = useDependencies();
@@ -12,7 +13,7 @@ export const useTreeItem = (id: string) => {
         return item;
     };
 
-    const result = useSwr(`tree/item/${id}`, fetcher);
+    const result = useSwr(swrKeyTreeItem(id), fetcher);
 
     return {
         ...result,

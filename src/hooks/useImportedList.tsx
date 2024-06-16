@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { useDependencies } from './useDependencies';
+import { swrKeyImportedList } from './swr/keys';
 
 export function useImportedList(id: string) {
     const { importedListRepo } = useDependencies();
@@ -7,5 +8,5 @@ export function useImportedList(id: string) {
         return await importedListRepo.getList(id);
     };
 
-    return useSWR(`imports/${id}`, fetcher);
+    return useSWR(swrKeyImportedList(id), fetcher);
 }

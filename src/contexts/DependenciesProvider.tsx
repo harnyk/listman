@@ -1,10 +1,14 @@
 import { createContext } from 'react';
-import { TreeRepoInterface } from '../repos/TreeRepoInterface';
 import { ImportedListRepoInterface } from '../repos/ImportedLIstRepoInterface';
+import { TreeRepoInterface } from '../repos/TreeRepoInterface';
+import { CheckoutService } from '../services/CheckoutService';
+import { CheckoutMetadataRepoInterface } from '../repos/CheckoutMetadataRepoInterface';
 
 export interface Dependencies {
     treeRepo: TreeRepoInterface;
     importedListRepo: ImportedListRepoInterface;
+    checkoutService: CheckoutService;
+    checkoutMetadataRepo: CheckoutMetadataRepoInterface;
 }
 
 export const DependenciesContext = createContext<Dependencies | null>(null);

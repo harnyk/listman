@@ -17,7 +17,7 @@ function Index() {
 
     return (
         <div className="App">
-            <div>{data && RootsView(data)}</div>
+            <div>{data && <RootsView items={data} />}</div>
             <div>
                 <button onClick={handleDevInitClick}>dev:init</button>
             </div>

@@ -1,0 +1,50 @@
+.ctaButton {
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #000000;
+    cursor: pointer;
+
+    text-shadow: 0 0 0.5rem #000000;
+
+    background: linear-gradient(45deg, #ff007c, #80deea, #0077b6, #ff00ff);
+    background-size: 400% 400%;
+    animation: Gradient 20s ease infinite;
+}
+
+.ctaButton:hover {
+    text-shadow: 0 0 0.5rem #ffffff;
+}
+
+.ctaButton:active {
+    text-shadow: 0 0 0.5rem #000000;
+    box-shadow: 0 0 0.5rem #007bff;
+}
+
+.ctaButton.loading {
+    background: linear-gradient(45deg, #ff007c, #80deea, #0077b6, #ff00ff);
+    background-size: 400% 400%;
+    animation: LoadingGradient 2s linear infinite;
+}
+
+@keyframes LoadingGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

@@ -3,9 +3,9 @@ import { TreeItem } from '../entities/TreeItem';
 import { v4 } from 'uuid';
 import { TreeRepoInterface } from './TreeRepoInterface';
 import { TreeItemForCreation } from '../entities/TreeItemForCreation';
+import { appDomain } from '../shared/constants';
 
 const storageVersion = 1;
-const appDomain = 'org.harnyk.listman';
 const collectionName = 'items';
 const rootId = '$root';
 
