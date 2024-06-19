@@ -6,10 +6,18 @@ import (
 	"github.com/harnyk/listman/pkg/common/fac"
 )
 
+func getDomain() string {
+	envVar := env.MustGet("VERCEL_ENV")
+	if envVar == "production" {
+		return env.MustGet("VERCEL_PROJECT_PRODUCTION_URL")
+	}
+	return env.MustGet("VERCEL_URL")
+}
+
 var BotServiceFactory = fac.New(
 	func() *botservice.BotService {
 		return botservice.New(
-			botservice.NewBotServiceOptions().ApplyWebappUrl(env.MustGet("VERCEL_URL")),
+			botservice.NewBotServiceOptions().ApplyWebappUrl(getDomain()),
 			AiServiceFactory.Get(),
 			ImportServiceFactory.Get(),
 		)
