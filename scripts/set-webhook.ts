@@ -135,6 +135,6 @@ const tgVercelKey = await getEnv('TGVERCEL_KEY', {
     target,
 });
 
-console.log('Going to set webhook to: ', setupUrl);
+console.log('Going to call setup endpoint:', setupUrl);
 const response = await callSetupEndpoint(setupUrl, tgVercelKey);
 console.log(JSON.stringify(response, null, 2));
