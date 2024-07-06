@@ -24,5 +24,5 @@ done
 
 # Loop through environments to add the environment variable
 for env in "${environments[@]}"; do
-  echo "$env" | vercel env add VITE_VERCEL_ENV "$env"
+  echo -n "$env" | vercel env add VITE_VERCEL_ENV "$env"
 done
