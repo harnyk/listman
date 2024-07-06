@@ -65,7 +65,11 @@ export const ItemTitle = ({
                 onKeyUp={handleSpanKeyUp}
                 {...longPressEvents}
             >
-                {item.title}
+                {item.title ? (
+                    item.title
+                ) : (
+                    <span className={classes.empty}>&lt;empty&gt;</span>
+                )}
             </span>
         );
     }

@@ -11,7 +11,8 @@
     "dev:bot": "go run ./internal/cmd/botlocal/main.go",
     "tgvercel": "go run github.com/harnyk/tgvercel",
     "deploy:preview": "DEPL=$(vercel) && yarn tgvercel hook $DEPL /api/tg/webhook",
-    "deploy:prod": "DEPL=$(vercel --prod) && yarn tgvercel hook $DEPL /api/tg/webhook"
+    "deploy:prod": "DEPL=$(vercel --prod) && yarn tgvercel hook $DEPL /api/tg/webhook",
+    "init:vite": "./scripts/npm-run/init-vite.sh"
   },
   "dependencies": {
     "react": "^18.2.0",

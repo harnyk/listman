@@ -18,9 +18,11 @@ function Index() {
     return (
         <div className="App">
             <div>{data && <RootsView items={data} />}</div>
-            <div>
-                <button onClick={handleDevInitClick}>dev:init</button>
-            </div>
+            {import.meta.env.VITE_VERCEL_ENV !== 'production' ? (
+                <div>
+                    <button onClick={handleDevInitClick}>dev:init</button>
+                </div>
+            ) : null}
         </div>
     );
 }
