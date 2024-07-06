@@ -3,6 +3,20 @@
         {
             "source": "/api/imports/:id",
             "destination": "/api/imports"
+        },
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "^(?!.*\\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico|json)).*$"
+                }
+            ]
         }
     ]
 }
