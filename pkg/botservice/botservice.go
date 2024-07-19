@@ -33,6 +33,12 @@ func (b *BotService) HandleUpdate(
 ) {
 	if update.Message != nil {
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+
+		if update.Message.IsCommand() {
+			log.Printf("Skipped command: %s", update.Message.Text)
+			return
+		}
+
 		shoppingList, err := b.aiService.ParseShoppingList(context.Background(), update.Message.Text)
 
 		if err != nil {
@@ -51,6 +57,9 @@ func (b *BotService) HandleUpdate(
 		link := b.options.WebappUrl + "/imports/" + id
 
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, link)
+
+		msg.ReplyToMessageID = update.Message.MessageID
+
 		_, err = bot.Send(msg)
 		if err != nil {
 			log.Println(err)
