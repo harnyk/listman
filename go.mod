@@ -9,7 +9,7 @@ require (
 	github.com/harnyk/tgvercelbot v1.0.0
 	github.com/joho/godotenv v1.5.1
 	github.com/nicklaw5/go-respond v1.6.0
-	github.com/sashabaranov/go-openai v1.26.1
+	github.com/sashabaranov/go-openai v1.27.0
 	go.mongodb.org/mongo-driver v1.15.1
 )
 
