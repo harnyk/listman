@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/harnyk/listman/pkg/entities"
@@ -74,4 +75,30 @@ func (a *AiService) ParseShoppingList(ctx context.Context, message string) (*ent
 	}
 
 	return list, nil
+}
+
+func (a *AiService) GetTextFromVoice(ctx context.Context, url string, fileName string) (string, error) {
+	res, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer res.Body.Close()
+
+	resp, err := a.client.CreateTranscription(
+		ctx,
+		openai.AudioRequest{
+			FilePath: fileName,
+			Model:    openai.Whisper1,
+			Reader:   res.Body,
+		},
+	)
+	if err != nil {
+		return "", err
+	}
+
+	if len(resp.Text) == 0 {
+		return "", errors.New("empty response")
+	}
+
+	return resp.Text, nil
 }
