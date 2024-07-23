@@ -1,6 +1,7 @@
 package botservice
 
 import (
+	"log"
 	"mime"
 )
 
@@ -29,12 +30,16 @@ var mimetypes = [][]string{
 }
 
 func init() {
+	log.Println("init mimetypes")
 	for _, v := range mimetypes {
 		typ := v[0]
 		extensions := v[1:]
 
 		for _, ext := range extensions {
-			mime.AddExtensionType(ext, typ)
+			err := mime.AddExtensionType("."+ext, typ)
+			if err != nil {
+				log.Fatalf("mime: %s", err.Error())
+			}
 		}
 	}
 }
