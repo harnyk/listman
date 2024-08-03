@@ -22,7 +22,13 @@ jobs:
         run: make tgvercel
       - name: Install dependencies
         run: yarn
+      - name: Check VERCEL_TOKEN
+        run: echo $VERCEL_TOKEN
       - name: Deploy to Vercel (Preview)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: yarn deploy:preview
       - name: Deploy to Vercel (Production)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: yarn deploy:prod
