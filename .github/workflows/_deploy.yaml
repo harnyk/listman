@@ -22,7 +22,7 @@ jobs:
         run: yarn
       - name: Create .vercel/project.json File
         env:
-          VERCEL_PROJECT_JSON: ${{ secrets.VERCEL_PROJECT_JSON }}
+          VERCEL_PROJECT_JSON: ${{ vars.VERCEL_PROJECT_JSON }}
         run: mkdir -p .vercel && echo $VERCEL_PROJECT_JSON > .vercel/project.json
       - name: Display .vercel/project.json File
         run: cat .vercel/project.json
