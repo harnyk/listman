@@ -15,14 +15,14 @@ import (
 
 type BotService struct {
 	options       *BotServiceOptions
-	aiService     aiservice.IAiService
-	importService importservice.IImportService
+	aiService     aiservice.AIService
+	importService importservice.ImportService
 }
 
 func New(
 	options *BotServiceOptions,
-	aiService aiservice.IAiService,
-	importService importservice.IImportService) *BotService {
+	aiService aiservice.AIService,
+	importService importservice.ImportService) *BotService {
 	return &BotService{
 		aiService:     aiService,
 		importService: importService,

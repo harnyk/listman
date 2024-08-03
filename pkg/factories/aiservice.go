@@ -7,7 +7,7 @@ import (
 )
 
 var AiServiceFactory = fac.New(
-	func() aiservice.IAiService {
+	func() aiservice.AIService {
 		return aiservice.New(env.MustGet("OPENAI_API_KEY"))
 	},
 )

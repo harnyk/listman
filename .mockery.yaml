@@ -3,10 +3,10 @@ with-expecter: true
 packages:
   github.com/harnyk/listman/pkg/importservice:
     interfaces:
-      IImportService:
+      ImportService:
   github.com/harnyk/listman/pkg/aiservice:
     interfaces:
-      IAiService:
+      AIService:
   github.com/harnyk/listman/pkg/botservice:
     interfaces:
       TgAPI:

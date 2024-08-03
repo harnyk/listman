@@ -46,8 +46,8 @@ func TestBotService_HandleUpdate(t *testing.T) {
 
 	update := &tgbotapi.Update{Message: fakeMessage}
 
-	mockAI := aiservice_mock.NewMockIAiService(t)
-	mockImport := importservice_mock.NewMockIImportService(t)
+	mockAI := aiservice_mock.NewMockAIService(t)
+	mockImport := importservice_mock.NewMockImportService(t)
 
 	botSrv := botservice.New(
 		botservice.NewBotServiceOptions().SetWebappUrl(fakeWebappUrl),
@@ -128,8 +128,8 @@ func TestBotService_HandleUpdate_Voice(t *testing.T) {
 
 	update := &tgbotapi.Update{Message: fakeMessage}
 
-	mockAI := aiservice_mock.NewMockIAiService(t)
-	mockImport := importservice_mock.NewMockIImportService(t)
+	mockAI := aiservice_mock.NewMockAIService(t)
+	mockImport := importservice_mock.NewMockImportService(t)
 
 	// ---------------------------------- EXPECTATIONS
 
