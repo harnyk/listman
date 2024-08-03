@@ -1,0 +1,14 @@
+name: On Release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  test:
+    uses: ./.github/workflows/_test.yaml
+  deploy_prod:
+    needs:
+      - test
+    uses: ./.github/workflows/_deploy.yaml
