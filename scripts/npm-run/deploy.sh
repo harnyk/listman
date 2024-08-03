@@ -2,7 +2,7 @@
 set -euo pipefail
 
 export VERCEL_COMMAND="vercel"
-export TGVERCEL_COMMAND="tgvercel hook"
+export TGVERCEL_COMMAND="go run github.com/harnyk/tgvercel hook"
 
 if [ -n "${VERCEL_TOKEN:-}" ]; then
     echo "Using VERCEL_TOKEN environment variable"
@@ -31,4 +31,4 @@ cat vercel.log
 echo ""
 echo "------"
 echo "Deployment URL: $DEPLOYMENT_URL"
-yarn "$TGVERCEL_COMMAND" "$DEPLOYMENT_URL" /api/tg/webhook
+$TGVERCEL_COMMAND "$DEPLOYMENT_URL" /api/tg/webhook

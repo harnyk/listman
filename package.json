@@ -9,7 +9,6 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "dev:bot": "go run ./internal/cmd/botlocal/main.go",
-    "tgvercel": "go run github.com/harnyk/tgvercel",
     "deploy:preview": "./scripts/npm-run/deploy.sh",
     "deploy:prod": "./scripts/npm-run/deploy.sh --prod",
     "init:vite": "./scripts/npm-run/init-vite.sh"
