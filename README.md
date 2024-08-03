@@ -1,30 +1,17 @@
-# React + TypeScript + Vite
+# Listman
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered Telegram bot allowing to manage lists.
 
-Currently, two official plugins are available:
+## How it works
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Once the bot is Deployed to Vercel, you can use it to create and manage shopping lists.
 
-## Expanding the ESLint configuration
+Just send a message to the bot and it will do the rest.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Listman uses OpenAI's GPT-4o-mini model to translate messages written in natural language into lists.
 
-- Configure the top-level `parserOptions` property like this:
+For voice messages OpenAI's Whisper model is used.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+As a result Listman will create a list and provide you with a link to manage it in the browser.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The list management web application is designed to work offline.
