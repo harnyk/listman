@@ -2,12 +2,13 @@
 set -euo pipefail
 
 export VERCEL_COMMAND="vercel"
-if [ -n "${VERCEL_TOKEN:-}" ]; then
-    echo "Using VERCEL_TOKEN environment variable"
-    VERCEL_COMMAND="$VERCEL_COMMAND --token=$VERCEL_TOKEN"
-else
-    echo "Using Vercel development auth"
-fi
+
+# if [ -n "${VERCEL_TOKEN:-}" ]; then
+#     echo "Using VERCEL_TOKEN environment variable"
+#     VERCEL_COMMAND="$VERCEL_COMMAND --token=$VERCEL_TOKEN"
+# else
+#     echo "Using Vercel development auth"
+# fi
 
 if [ "${1:-}" = "--prod" ]; then
     VERCEL_COMMAND="$VERCEL_COMMAND --prod"
