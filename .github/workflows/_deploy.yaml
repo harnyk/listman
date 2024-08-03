@@ -21,7 +21,9 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Create .vercel/project.json File
-        run: mkdir -p .vercel && echo ${{ vars.VERCEL_PROJECT_JSON }} > .vercel/project.json
+        env:
+          VERCEL_PROJECT_JSON: ${{ secrets.VERCEL_PROJECT_JSON }}
+        run: mkdir -p .vercel && echo $VERCEL_PROJECT_JSON > .vercel/project.json
       - name: Display .vercel/project.json File
         run: cat .vercel/project.json
       - name: Deploy to Vercel (Preview)
