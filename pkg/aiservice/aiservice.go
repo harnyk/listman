@@ -16,6 +16,8 @@ type AiService struct {
 	client *openai.Client
 }
 
+var _ IAiService = &AiService{}
+
 func New(token string) *AiService {
 	client := openai.NewClient(token)
 

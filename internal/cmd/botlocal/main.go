@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/harnyk/listman/pkg/common/env"
 	"github.com/harnyk/listman/pkg/factories"
 	"github.com/harnyk/tgvercelbot"
@@ -18,7 +19,9 @@ func main() {
 
 	service := factories.BotServiceFactory.Get()
 
-	err = tgvercelbot.RunLocal(env.MustGet("TELEGRAM_TOKEN"), service.HandleUpdate)
+	err = tgvercelbot.RunLocal(env.MustGet("TELEGRAM_TOKEN"), func(bot *tgbotapi.BotAPI, update *tgbotapi.Update) {
+		service.HandleUpdate(bot, update)
+	})
 	if err != nil {
 		log.Fatalf("failed to run locally: %v", err)
 	}

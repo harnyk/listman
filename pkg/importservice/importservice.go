@@ -18,6 +18,8 @@ type ImportService struct {
 	client       *mongo.Client
 }
 
+var _ IImportService = &ImportService{}
+
 func New(client *mongo.Client, databaseName string) *ImportService {
 	return &ImportService{
 		client:       client,

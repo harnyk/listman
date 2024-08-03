@@ -17,7 +17,7 @@ func getDomain() string {
 var BotServiceFactory = fac.New(
 	func() *botservice.BotService {
 		return botservice.New(
-			botservice.NewBotServiceOptions().ApplyWebappUrl(getDomain()),
+			botservice.NewBotServiceOptions().SetWebappUrl(getDomain()),
 			AiServiceFactory.Get(),
 			ImportServiceFactory.Get(),
 		)

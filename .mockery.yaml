@@ -1,0 +1,12 @@
+outpkg: "{{.PackageName}}_mock"
+with-expecter: true
+packages:
+  github.com/harnyk/listman/pkg/importservice:
+    interfaces:
+      IImportService:
+  github.com/harnyk/listman/pkg/aiservice:
+    interfaces:
+      IAiService:
+  github.com/harnyk/listman/pkg/botservice:
+    interfaces:
+      TgAPI:
