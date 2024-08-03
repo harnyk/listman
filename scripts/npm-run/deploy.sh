@@ -2,13 +2,15 @@
 set -euo pipefail
 
 export VERCEL_COMMAND="vercel"
+export TGVERCEL_COMMAND="tgvercel hook"
 
-# if [ -n "${VERCEL_TOKEN:-}" ]; then
-#     echo "Using VERCEL_TOKEN environment variable"
-#     VERCEL_COMMAND="$VERCEL_COMMAND --token=$VERCEL_TOKEN"
-# else
-#     echo "Using Vercel development auth"
-# fi
+if [ -n "${VERCEL_TOKEN:-}" ]; then
+    echo "Using VERCEL_TOKEN environment variable"
+    VERCEL_COMMAND="$VERCEL_COMMAND --token=$VERCEL_TOKEN"
+    TGVERCEL_COMMAND="$TGVERCEL_COMMAND --token=$VERCEL_TOKEN"
+else
+    echo "Using Vercel development auth"
+fi
 
 if [ "${1:-}" = "--prod" ]; then
     VERCEL_COMMAND="$VERCEL_COMMAND --prod"
@@ -29,4 +31,4 @@ cat vercel.log
 echo ""
 echo "------"
 echo "Deployment URL: $DEPLOYMENT_URL"
-yarn tgvercel hook "$DEPLOYMENT_URL" /api/tg/webhook
+yarn "$TGVERCEL_COMMAND" "$DEPLOYMENT_URL" /api/tg/webhook

@@ -26,11 +26,9 @@ jobs:
         run: mkdir -p .vercel && echo $VERCEL_PROJECT_JSON > .vercel/project.json
       - name: Deploy to Vercel (Preview)
         env:
-          TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: yarn deploy:preview
       - name: Deploy to Vercel (Production)
         env:
-          TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: yarn deploy:prod
