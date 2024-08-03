@@ -22,4 +22,10 @@ if ! command -v tgvercel &> /dev/null; then
     exit 1
 fi
 
-DEPL=$($VERCEL_COMMAND) && yarn tgvercel hook "$DEPL" /api/tg/webhook
+DEPLOYMENT_URL=$($VERCEL_COMMAND 2>vercel.log)
+echo "Vercel Deploy Log:"
+cat vercel.log
+echo ""
+echo "------"
+echo "Deployment URL: $DEPLOYMENT_URL"
+yarn tgvercel hook "$DEPLOYMENT_URL" /api/tg/webhook
