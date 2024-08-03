@@ -10,8 +10,8 @@
     "preview": "vite preview",
     "dev:bot": "go run ./internal/cmd/botlocal/main.go",
     "tgvercel": "go run github.com/harnyk/tgvercel",
-    "deploy:preview": "DEPL=$(vercel) && yarn tgvercel hook $DEPL /api/tg/webhook",
-    "deploy:prod": "DEPL=$(vercel --prod) && yarn tgvercel hook $DEPL /api/tg/webhook",
+    "deploy:preview": "./scripts/npm-run/deploy.sh",
+    "deploy:prod": "./scripts/npm-run/deploy.sh --prod",
     "init:vite": "./scripts/npm-run/init-vite.sh"
   },
   "dependencies": {
