@@ -15,14 +15,14 @@ import (
 
 type BotService struct {
 	options       *BotServiceOptions
-	aiService     *aiservice.AiService
-	importService *importservice.ImportService
+	aiService     aiservice.AIService
+	importService importservice.ImportService
 }
 
 func New(
 	options *BotServiceOptions,
-	aiService *aiservice.AiService,
-	importService *importservice.ImportService) *BotService {
+	aiService aiservice.AIService,
+	importService importservice.ImportService) *BotService {
 	return &BotService{
 		aiService:     aiService,
 		importService: importService,
@@ -31,7 +31,7 @@ func New(
 }
 
 func (b *BotService) HandleUpdate(
-	bot *tgbotapi.BotAPI,
+	bot TgAPI,
 	update *tgbotapi.Update,
 ) {
 	if update.Message != nil {
@@ -66,7 +66,7 @@ func (b *BotService) HandleUpdate(
 	}
 }
 
-func (b *BotService) handleVoiceMessage(bot *tgbotapi.BotAPI, update *tgbotapi.Update) error {
+func (b *BotService) handleVoiceMessage(bot TgAPI, update *tgbotapi.Update) error {
 	voice := update.Message.Voice
 	fileID := voice.FileID
 	duration := voice.Duration
@@ -92,7 +92,8 @@ func (b *BotService) handleVoiceMessage(bot *tgbotapi.BotAPI, update *tgbotapi.U
 	}
 	ext := extensions[0]
 	log.Printf("Assumed extension: %s", ext)
-	fakeFileName := fmt.Sprintf("voice_message.%s", ext)
+	// No need to add a dot, because it is already a part of the extension
+	fakeFileName := fmt.Sprintf("voice_message%s", ext)
 
 	fileURL, err := bot.GetFileDirectURL(fileID)
 	if err != nil {
@@ -133,7 +134,7 @@ func (b *BotService) handleVoiceMessage(bot *tgbotapi.BotAPI, update *tgbotapi.U
 	return b.sendMessage(bot, chatID, messageID, link)
 }
 
-func (b *BotService) handleTextMessage(bot *tgbotapi.BotAPI, update *tgbotapi.Update) error {
+func (b *BotService) handleTextMessage(bot TgAPI, update *tgbotapi.Update) error {
 	text := update.Message.Text
 	chatID := update.Message.Chat.ID
 	messageID := update.Message.MessageID
@@ -161,7 +162,7 @@ func (b *BotService) handleTextMessage(bot *tgbotapi.BotAPI, update *tgbotapi.Up
 }
 
 func (b *BotService) sendMessage(
-	bot *tgbotapi.BotAPI,
+	bot TgAPI,
 	chatID int64,
 	replyToMessageID int,
 	text string,

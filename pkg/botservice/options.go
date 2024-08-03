@@ -8,7 +8,7 @@ func NewBotServiceOptions() *BotServiceOptions {
 	return &BotServiceOptions{}
 }
 
-func (o *BotServiceOptions) ApplyWebappUrl(url string) *BotServiceOptions {
+func (o *BotServiceOptions) SetWebappUrl(url string) *BotServiceOptions {
 	o.WebappUrl = url
 	return o
 }

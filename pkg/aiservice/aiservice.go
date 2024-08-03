@@ -12,14 +12,16 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
-type AiService struct {
+type AIServiceOpenAI struct {
 	client *openai.Client
 }
 
-func New(token string) *AiService {
+var _ AIService = &AIServiceOpenAI{}
+
+func New(token string) *AIServiceOpenAI {
 	client := openai.NewClient(token)
 
-	return &AiService{
+	return &AIServiceOpenAI{
 		client: client,
 	}
 }
@@ -28,7 +30,7 @@ type promptParams struct {
 	Text string
 }
 
-func (a *AiService) ParseShoppingList(ctx context.Context, message string) (*entities.ShoppingList, error) {
+func (a *AIServiceOpenAI) ParseShoppingList(ctx context.Context, message string) (*entities.ShoppingList, error) {
 	buffer := strings.Builder{}
 	err := promptTemplate.Execute(&buffer, promptParams{
 		Text: message,
@@ -77,7 +79,7 @@ func (a *AiService) ParseShoppingList(ctx context.Context, message string) (*ent
 	return list, nil
 }
 
-func (a *AiService) GetTextFromVoice(ctx context.Context, url string, fileName string) (string, error) {
+func (a *AIServiceOpenAI) GetTextFromVoice(ctx context.Context, url string, fileName string) (string, error) {
 	res, err := http.Get(url)
 	if err != nil {
 		return "", err

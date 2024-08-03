@@ -7,7 +7,7 @@ import (
 )
 
 var ImportServiceFactory = fac.New(
-	func() *importservice.ImportService {
+	func() importservice.ImportService {
 		return importservice.New(
 			MongoClientFactory.Get(),
 			env.MustGet("MONGODB_DATABASE"),

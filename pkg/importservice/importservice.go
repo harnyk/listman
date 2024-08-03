@@ -13,23 +13,25 @@ import (
 
 const collectionName = "imported_lists"
 
-type ImportService struct {
+type ImportServiceMongo struct {
 	databaseName string
 	client       *mongo.Client
 }
 
-func New(client *mongo.Client, databaseName string) *ImportService {
-	return &ImportService{
+var _ ImportService = &ImportServiceMongo{}
+
+func New(client *mongo.Client, databaseName string) *ImportServiceMongo {
+	return &ImportServiceMongo{
 		client:       client,
 		databaseName: databaseName,
 	}
 }
 
-func (s *ImportService) getCollection() *mongo.Collection {
+func (s *ImportServiceMongo) getCollection() *mongo.Collection {
 	return s.client.Database(s.databaseName).Collection(collectionName)
 }
 
-func (s *ImportService) CreateImportedList(ctx context.Context, list entities.ShoppingList) (string, error) {
+func (s *ImportServiceMongo) CreateImportedList(ctx context.Context, list entities.ShoppingList) (string, error) {
 	collection := s.getCollection()
 
 	id, err := mongouuid.New()
@@ -50,7 +52,7 @@ func (s *ImportService) CreateImportedList(ctx context.Context, list entities.Sh
 	return insertedId, nil
 }
 
-func (s *ImportService) GetImportedListById(ctx context.Context, id string) (*ImportedList, error) {
+func (s *ImportServiceMongo) GetImportedListById(ctx context.Context, id string) (*ImportedList, error) {
 	idBin, err := mongouuid.FromStr(id)
 	if err != nil {
 		return nil, err
