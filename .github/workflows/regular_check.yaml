@@ -1,0 +1,10 @@
+name: Regular Check
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  test:
+    uses: ./.github/workflows/_test.yaml
