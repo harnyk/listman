@@ -2,12 +2,15 @@ name: Deploy
 
 on:
   workflow_call:
+    inputs:
+      token:
+        type: string
+        description: "Vercel token"
+        required: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
@@ -23,12 +26,12 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Check VERCEL_TOKEN
-        run: echo $VERCEL_TOKEN
+        run: echo "VERCEL_TOKEN is ${{ inputs.token }}"
       - name: Deploy to Vercel (Preview)
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ inputs.token }}
         run: yarn deploy:preview
       - name: Deploy to Vercel (Production)
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ inputs.token }}
         run: yarn deploy:prod
