@@ -15,5 +15,4 @@ jobs:
     needs:
       - test
     uses: ./.github/workflows/_deploy.yaml
-    with:
-      token: ${{ secrets.VERCEL_TOKEN }}
+    secrets: inherit
