@@ -29,5 +29,13 @@ export const useTreeItem = (id: string) => {
             await treeRepo.deleteItem(id);
             result.mutate();
         },
+        createSubItem: async (parentItemId: string) => {
+            await treeRepo.createItem({
+                parentId: parentItemId,
+                title: '<New item>',
+                checked: false,
+            });
+            result.mutate();
+        },
     };
 };

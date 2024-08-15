@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { ImportedListRepoInterface } from '../repos/ImportedLIstRepoInterface';
+import { ImportedListRepoInterface } from '../repos/ImportedListRepoInterface';
 import { TreeRepoInterface } from '../repos/TreeRepoInterface';
 import { CheckoutService } from '../services/CheckoutService';
 import { CheckoutMetadataRepoInterface } from '../repos/CheckoutMetadataRepoInterface';

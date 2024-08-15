@@ -1,5 +1,5 @@
 import { CheckoutMetadataRepoInterface } from '../repos/CheckoutMetadataRepoInterface';
-import { ImportedListRepoInterface } from '../repos/ImportedLIstRepoInterface';
+import { ImportedListRepoInterface } from '../repos/ImportedListRepoInterface';
 import { TreeRepoInterface } from '../repos/TreeRepoInterface';
 
 export class CheckoutService {

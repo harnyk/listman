@@ -1,14 +1,34 @@
 import { useClickAway } from 'react-use';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 import { usePopper } from 'react-popper';
-import { FC, useCallback, useRef, useState } from 'react';
+import {
+    createContext,
+    FC,
+    useCallback,
+    useContext,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import classes from './ContextMenu.module.css';
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 
+interface ContextMenuAPI {
+    close: () => void;
+}
+
 interface ContextMenuProps {
     children: () => React.ReactNode;
 }
+
+const ContextMenuContext = createContext<ContextMenuAPI>({
+    close: () => {},
+});
+
+export const useContextMenu = () => {
+    return useContext(ContextMenuContext);
+};
 
 export const ContextMenu: FC<ContextMenuProps> = ({ children }) => {
     const [referenceElement, setReferenceElement] =
@@ -29,6 +49,11 @@ export const ContextMenu: FC<ContextMenuProps> = ({ children }) => {
         setIsOpen(false);
     });
 
+    const contextApi = useMemo(
+        () => ({ close: () => setIsOpen(false) }),
+        [setIsOpen]
+    );
+
     const menuInPortal = createPortal(
         <div
             ref={setPopperElement}
@@ -36,7 +61,11 @@ export const ContextMenu: FC<ContextMenuProps> = ({ children }) => {
             {...attributes.popper}
         >
             <div ref={clickAwayTargetRef}>
-                <div className={classes.menuInner}>{children()}</div>
+                <div className={classes.menuInner}>
+                    <ContextMenuContext.Provider value={contextApi}>
+                        {children()}
+                    </ContextMenuContext.Provider>
+                </div>
             </div>
         </div>,
         document.body
