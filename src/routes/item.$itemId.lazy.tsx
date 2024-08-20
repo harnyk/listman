@@ -9,7 +9,8 @@ export const Route = createLazyFileRoute('/item/$itemId')({
 
 function ItemPage() {
     const { itemId } = Route.useParams();
-    const { data, setChecked, setTitle, remove } = useTreeItem(itemId);
+    const { data, setChecked, setTitle, remove, createSubItem } =
+        useTreeItem(itemId);
 
     const handleCheckedChange = useCallback(
         (id: string, checked: boolean) => {
@@ -32,6 +33,13 @@ function ItemPage() {
         [remove]
     );
 
+    const handleCreateSubItem = useCallback(
+        (parentItemId: string) => {
+            createSubItem(parentItemId);
+        },
+        [createSubItem]
+    );
+
     return (
         <div>
             <div>
@@ -42,6 +50,7 @@ function ItemPage() {
                         onCheckChange={handleCheckedChange}
                         onTitleChange={handleTitleChange}
                         onRemove={handleRemove}
+                        onCreateSubItem={handleCreateSubItem}
                     />
                 )}
             </div>
